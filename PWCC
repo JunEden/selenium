@@ -1,0 +1,1025 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Jun  8 13:37:30 2021
+
+@author: ubuntu
+"""
+from bs4 import BeautifulSoup
+import pandas as pd
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+import time
+driver = webdriver.Chrome('chromedriver')
+
+driver.set_window_size(960, 1920)
+
+driver.get('https://www.pwccmarketplace.com/login')
+
+mail = driver.find_element_by_id("email")
+time.sleep(1)
+mail.send_keys("blackta0413@gmail.com")
+pw = driver.find_element_by_id("password")
+time.sleep(1)
+pw.send_keys("Eden0413")
+driver.find_element_by_xpath('//*[@id="app"]/main/div/div[2]/div/div/div/div/div/div/form/div[4]/button').send_keys(Keys.ENTER)
+driver.find_element_by_css_selector('button').click()
+time.sleep(2)
+driver.find_element_by_xpath('//*[@id="mobileNavModal"]/div/div/div[2]/div/div[7]/h3/i').click()
+time.sleep(2)
+driver.find_element_by_xpath('//*[@id="research"]/li[1]/a').click()
+driver.find_element_by_xpath('//*[@id="app"]/main/div/div[2]/div/div/div[1]/div[2]/div/div[1]/div/form/div[1]/div/div[1]/div/span').click()
+Keys = driver.find_element_by_xpath('//*[@id="app"]/main/div/div[2]/div/div/div[1]/div[2]/div/div[1]/div/form/div[1]/div/div[1]/div/input')
+Keys.send_keys("2003 lebron rc  topps chrome refractor psa")
+driver.find_element_by_xpath('//*[@id="app"]/main/div/div[2]/div/div/div[1]/div[2]/div/div[1]/div/form/div[1]/div/div[1]/div/i').click()
+driver.find_element_by_xpath('//*[@id="app"]/main/div/div[2]/div/div/div[1]/div[2]/div/div[1]/div/form/div[3]/div[2]/div[3]/div[2]/div/select').click()
+driver.find_element_by_xpath('//*[@id="app"]/main/div/div[2]/div/div/div[1]/div[2]/div/div[1]/div/form/div[3]/div[2]/div[3]/div[2]/div/select/option[4]').click()
+
+
+
+
+sp = BeautifulSoup(driver.page_source,'lxml')
+
+newList = []
+table = sp.select(".table tr")
+
+for tr in table:
+    if tr.select("td"):
+        td = tr.select('td')
+        title = td[1].text
+        year =  td[2].text
+        money = td[4].text
+        print(money)
+        newList.append({"title":title,"year":year,"money":money})
+        
+newsdf = pd.DataFrame(newList)
+newsdf.to_csv("Selenium_PWCC.CSV")
+,Unnamed: 0,Unnamed: 0.1,Unnamed: 0.1.1,money,title,year
+0,0,0,0,16200.0,"
+                    LEBRON JAMES PSA 8 NM-MT LAKERS ROOKIE REFRACTOR #111 RC SP 2003-04 TOPPS CHROME
+
+                  ","May22,2021"
+1,1,1,1,17400.0,"
+                    LEBRON JAMES PSA 8 NM-MT LAKERS ROOKIE REFRACTOR #111 RC SP 2003-04 TOPPS CHROME
+
+                  ","May13,2021"
+2,2,2,2,37488.88,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 9 MINT
+
+                  ","May11,2021"
+3,3,3,3,33100.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 9 MINT
+
+                  ","Apr30,2021"
+4,4,4,4,18421.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 8 NM-MT
+
+                  ","Apr30,2021"
+5,5,5,5,37600.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 9 MINT
+
+                  ","Mar31,2021"
+6,6,6,6,51211.0,"
+                    2003 Topps Chrome Black Refractor LeBron James ROOKIE RC /500 PSA 8 NM-MT
+
+                  ","Mar30,2021"
+7,7,7,7,19100.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 8 NM-MT
+
+                  ","Mar26,2021"
+8,8,8,8,27877.77,"
+                    2003-04 Topps Chrome Basketball Complete REFRACTOR Set LeBron James RC PSA 8
+
+                  ","Mar13,2021"
+9,9,9,9,50401.0,"
+                    2003-04 Topps Chrome Refractor #111 Lebron James RC Rookie PSA 9 MINT
+
+                  ","Feb28,2021"
+10,10,10,10,45700.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 9 MINT
+
+                  ","Feb26,2021"
+11,11,11,11,16200.0,"
+                    2003 Topps Chrome Refractor LeBron James RC#111 PSA 8 NM-MT
+
+                  ","Jan17,2021"
+12,12,12,12,94300.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT
+
+                  ","Dec30,2020"
+13,13,13,13,21100.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 9 MINT
+
+                  ","Dec21,2020"
+14,14,14,14,9600.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 8 NM-MT
+
+                  ","Nov17,2020"
+15,15,15,15,36355.0,"
+                    2003 Topps Chrome Black Refractor LeBron James ROOKIE RC /500 #111 PSA 9 MINT
+
+                  ","Oct29,2020"
+16,16,16,16,18100.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 9 MINT
+
+                  ","Oct12,2020"
+17,17,17,17,17050.0,"
+                    LEBRON JAMES 2003-04 Topps Chrome Refractor PSA 9 RC Rookie 111 bgs 03-04 LeBron
+
+                  ","Oct11,2020"
+18,18,18,18,52100.0,"
+                    2003 Topps Chrome Refractor #111 PSA 10 Gem Mint LeBron James Rookie Card RC
+
+                  ","Oct11,2020"
+19,19,19,19,19100.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 9 MINT
+
+                  ","Oct10,2020"
+20,20,20,20,17600.0,"
+                    LEBRON JAMES 2003-04 Topps Chrome Refractor PSA 9 RC Rookie 111 bgs 03-04 LeBron
+
+                  ","Oct9,2020"
+21,21,21,21,19100.0,"
+                    2003-04 Topps Chrome Refractor #111 LeBron James Cavaliers RC Rookie PSA 9 MINT
+
+                  ","Oct6,2020"
+22,22,22,22,10000.0,"
+                    2003-04 Topps Chrome Refractor #111 LeBron James Cavaliers RC Rookie PSA 8 NM-MT
+
+                  ","Oct1,2020"
+23,23,23,23,23410.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 9 MINT
+
+                  ","Sep30,2020"
+24,24,24,24,18000.0,"
+                    2003 Lebron James Topps #111 Chrome Refractor RC PSA 9 Rookie Card
+
+                  ","Sep13,2020"
+25,25,25,25,10000.0,"
+                    2003-04 Topps Chrome Refractor LeBron James ROOKIE RC #111 BGS PSA Authentic HOT
+
+                  ","Sep13,2020"
+26,26,26,26,20000.0,"
+                    2003 Lebron James Topps #111 Chrome Refractor RC PSA 9 Rookie Card
+
+                  ","Sep4,2020"
+27,27,27,27,10050.0,"
+                    2003-04 Topps Chrome Refractor LeBron James ROOKIE RC #111 BGS PSA Authentic HOT
+
+                  ","Aug29,2020"
+28,28,28,28,145300.0,"
+                    2003 Topps Chrome Black Refractor LeBron James ROOKIE RC /500 #111 PSA 10 GEM MT
+
+                  ","Aug24,2020"
+29,29,29,29,1580.0,"
+                    2003-04 LeBron James #221 Topps ROOKIE RC BGS 9! 9.5 non psa chrome refractor
+
+                  ","Aug22,2020"
+30,30,30,30,1352.87,"
+                    2003-04 LeBron James Topps Chrome Pristine RC ROOKIE BGS 9.5! non psa refractor
+
+                  ","Aug14,2020"
+31,31,31,31,70700.0,"
+                    2003 Topps Chrome Refractor #111 Lebron James RC Rookie PSA 10 GEM MINT Flawless
+
+                  ","Aug5,2020"
+32,32,32,32,18319.0,"
+                    2003 Topps Chrome #111 Lebron James RC Refractor Rookie PSA 8.5 NM-MT 47912363
+
+                  ","Jul26,2020"
+33,33,33,33,22557.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 9 MINT INVEST PMJS
+
+                  ","Jul16,2020"
+34,34,34,34,12877.77,"
+                    2003-04 Topps Chrome Refractor #111 Lebron James RC Rookie PSA 8 NM-MT 
+
+                  ","Jul14,2020"
+35,35,35,35,8777.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 8 NM-MT (PWCC)
+
+                  ","Jun22,2020"
+36,36,36,36,13769.69,"
+                    LEBRON JAMES 2003-04 TOPPS CHROME REFRACTOR RC ROOKIE #111 PSA MINT 9
+
+                  ","Jun20,2020"
+37,37,37,37,13623.23,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 9 MINT (PWCC)
+
+                  ","May31,2020"
+38,38,38,38,771.0,"
+                     2003-04 TOPPS CHROME #111 LeBRON JAMES RC BGS 3.0 (psa JSC non refractor) 
+
+                  ","May24,2020"
+39,39,39,39,9750.0,"
+                    2003-04 Topps Chrome Refractor #111 Lebron James RC Rookie PSA 9 MINT
+
+                  ","May4,2020"
+40,40,40,40,17600.0,"
+                    2003 Topps Chrome Refractor #111 Lebron James RC Rookie PSA 10 GEM MINT
+
+                  ","Apr6,2020"
+41,41,41,41,10677.0,"
+                    2003-04 Topps Chrome Refractor #111 LeBron James Cavaliers RC Rookie PSA 9 MINT
+
+                  ","Mar11,2020"
+42,42,42,42,17655.55,"
+                    2003-04 Topps Chrome Refractor #111 LeBron James Cavaliers RC Rookie PSA 10 RARE
+
+                  ","Feb16,2020"
+43,43,43,43,15177.0,"
+                    Lebron James 2003 Topps Chrome Refractor Rookie Rc PSA 10 Gem Mint #111
+
+                  ","Feb7,2020"
+44,44,44,44,13500.0,"
+                    2003-04 Topps Chrome Refractor #111 LeBron James Cavaliers RC Rookie PSA 10 RARE
+
+                  ","Feb3,2020"
+45,45,45,45,3473.0,"
+                    LEBRON JAMES 2003 TOPPS CHROME REFRACTORS ROOKIE RC PSA 8 ICONIC HOF MUST HAVE
+
+                  ","Jan24,2020"
+46,46,46,46,4650.0,"
+                    2003-04 Topps Chrome Refractor #111 LeBron James Cavaliers RC Rookie PSA 9 MINT
+
+                  ","Dec30,2019"
+47,47,47,47,11299.0,"
+                    2003-04 Topps Chrome Refractor #111 LeBron James Cavaliers RC Rookie PSA 10
+
+                  ","Nov26,2019"
+48,48,48,48,12100.01,"
+                    2003 Topps Chrome Black Refractor LeBron James ROOKIE RC /500 #111 PSA 9 (PWCC)
+
+                  ","Nov19,2019"
+49,49,49,49,3750.0,"
+                    2003-04 Topps Chrome Refractor #111 LeBron James Cavaliers RC Rookie PSA 9 MINT
+
+                  ","Nov12,2019"
+50,50,50,50,10600.0,"
+                    2003 Topps Chrome*LEBRON JAMES*RC Refractor Card Graded PSA Gem Mint 10!!
+
+                  ","Nov4,2019"
+51,51,51,51,10100.0,"
+                    2003-04 Topps Chrome Refractor #111 LeBron James Cavaliers RC Rookie PSA 10
+
+                  ","Oct29,2019"
+52,52,52,52,9200.0,"
+                    2003-04 Topps Chrome Refractor #111 LeBron James Cavaliers RC Rookie PSA 10 
+
+                  ","Oct17,2019"
+53,53,53,53,3816.0,"
+                    2003-04 Topps Chrome Refractor #111 LeBron James Cavaliers RC Rookie PSA 9 MINT
+
+                  ","Oct14,2019"
+54,54,54,54,3100.0,"
+                    2003-04 TOPPS CHROME LEBRON JAMES REFRACTOR ROOKIE RC PSA 8.5 NM-MT+ CAVALIERS
+
+                  ","Oct1,2019"
+55,55,55,55,22665.0,"
+                    2003 Topps Chrome Black Refractor LeBron James ROOKIE RC /500 #111 PSA 10 (PWCC)
+
+                  ","Sep19,2019"
+56,56,56,56,3425.0,"
+                    2003-04 Topps Chrome Refractor #111 LeBron James Cavaliers RC Rookie PSA 9 MINT
+
+                  ","Sep12,2019"
+57,57,57,57,7900.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT 
+
+                  ","Aug28,2019"
+58,58,58,58,8617.17,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT (PWCC)
+
+                  ","Aug27,2019"
+59,59,59,59,3550.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 9 MINT (PWCC)
+
+                  ","Aug20,2019"
+60,60,60,60,6533.0,"
+                    2003-04 Topps Chrome Refractor #111 LeBron James RC Rookie PSA 10 "" HIGH END ""
+
+                  ","Jul29,2019"
+61,61,61,61,8700.0,"
+                    2003 Topps Chrome Refractor COMPLETE SET LeBron James Wade Carmelo RC PSA (PWCC)
+
+                  ","Jun30,2019"
+62,62,62,62,6227.0,"
+                    2003-04 Topps Chrome Refractor #111 LeBron James Cavaliers RC Rookie PSA 10
+
+                  ","Jun19,2019"
+63,63,63,63,19501.0,"
+                    2003 Topps Chrome Black Refractor LeBron James ROOKIE RC /500 #111 PSA 10 (PWCC)
+
+                  ","May21,2019"
+64,64,64,64,5201.0,"
+                    Lebron James 2003 04 Topps chrome basketball #111 RC rookie refractor PSA 10
+
+                  ","May13,2019"
+65,65,65,65,5851.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT (PWCC)
+
+                  ","Apr28,2019"
+66,66,66,66,6100.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT (PWCC)
+
+                  ","Apr18,2019"
+67,67,67,67,5401.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT (PWCC)
+
+                  ","Mar31,2019"
+68,68,68,68,2558.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 9 MINT (PWCC)
+
+                  ","Mar21,2019"
+69,69,69,69,6106.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT (PWCC)
+
+                  ","Mar21,2019"
+70,70,70,70,2550.0,"
+                    Lebron James 2003 04 Topps Chrome Basketball #111 RC Rookie Refractor Mint PSA 9
+
+                  ","Mar6,2019"
+71,71,71,71,4100.0,"
+                    2003-04 Topps Chrome Black Refractor #111 LeBron James RC Rookie /500 PSA 9
+
+                  ","Feb28,2019"
+72,72,72,72,6200.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT (PWCC)
+
+                  ","Feb28,2019"
+73,73,73,73,5001.01,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT
+
+                  ","Feb23,2019"
+74,74,74,74,5820.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT (PWCC)
+
+                  ","Feb21,2019"
+75,75,75,75,4951.0,"
+                    2003 TOPPS CHROME BLACK REFRACTOR LEBRON JAMES ROOKIE RC /500 #111 PSA 9 LAKERS
+
+                  ","Feb18,2019"
+76,76,76,76,5500.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT
+
+                  ","Feb13,2019"
+77,77,77,77,5700.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT (PWCC)
+
+                  ","Jan30,2019"
+78,78,78,78,6020.78,"
+                    2003-04 Topps Chrome Refractor #111 LeBron James Cavaliers RC Rookie PSA 10 
+
+                  ","Jan22,2019"
+79,79,79,79,3006.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 9 MINT (PWCC)
+
+                  ","Jan22,2019"
+80,80,80,80,5602.0,"
+                    2003 TOPPS CHROME REFRACTOR LEBRON JAMES RC #111 PSA 10 TRUE ROOKIE *NO RESERVE*
+
+                  ","Jan6,2019"
+81,81,81,81,5901.0,"
+                    2003-04 Topps Chrome Refractor #111 LeBron James RC Rookie PSA 10 EXTREMELY HOT!
+
+                  ","Nov23,2018"
+82,82,82,82,4861.0,"
+                    Lebron James 2003 04 Topps Chrome #111 RC Rookie Black Refractor 482/500 PSA 9
+
+                  ","Nov21,2018"
+83,83,83,83,5599.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT (PWCC)
+
+                  ","Nov15,2018"
+84,84,84,84,4055.0,"
+                    2003 Topps Chrome Black Refractor LeBron James ROOKIE RC /500 #111 PSA 9 (PWCC)
+
+                  ","Nov15,2018"
+85,85,85,85,5653.0,"
+                    2003-04 Topps Chrome Refractor #111 LeBron James RC Rookie PSA 10 EXTREMELY HOT!
+
+                  ","Nov14,2018"
+86,86,86,86,5300.0,"
+                    2003-04 Topps Chrome Refractor #111 LeBron James RC Rookie PSA 10 "" HIGH END ""
+
+                  ","Nov14,2018"
+87,87,87,87,6000.0,"
+                    2003-04 Topps Chrome Refractor #111 LeBron James Cavaliers RC PSA 10 HOT CARD
+
+                  ","Nov5,2018"
+88,88,88,88,5958.0,"
+                    Lebron James 2003 04 Topps Chrome #111 RC Rookie Black Refractor 482/500 PSA 9
+
+                  ","Nov1,2018"
+89,89,89,89,6200.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT (PWCC)
+
+                  ","Oct31,2018"
+90,90,90,90,6150.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT (PWCC)
+
+                  ","Oct24,2018"
+91,91,91,91,6100.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT (PWCC)
+
+                  ","Oct24,2018"
+92,92,92,92,7000.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT (PWCC)
+
+                  ","Sep30,2018"
+93,93,93,93,6400.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT (PWCC)
+
+                  ","Sep20,2018"
+94,94,94,94,6300.0,"
+                    2003-04 Topps Chrome Refractor #111 LeBron James Cavaliers RC Rookie PSA 10
+
+                  ","Sep20,2018"
+95,95,95,95,3000.0,"
+                    2003-04 Topps Chrome Refractor #111 LeBron James Cavaliers RC PSA 9 MINT 
+
+                  ","Sep19,2018"
+96,96,96,96,3550.0,"
+                    2003 Topps Chrome Black Refractor LeBron James ROOKIE RC /500 #111 PSA 8 (PWCC)
+
+                  ","Aug30,2018"
+97,97,97,97,2683.0,"
+                    2003-04 Sealed MINT Topps Chrome Box Lebron James RC Refractor xfractor PSA 10 ?
+
+                  ","Aug20,2018"
+98,98,98,98,2850.0,"
+                    2003-04 Topps Chrome Refractor #111 LeBron James Cavilers RC Rookie PSA 9 MINT 
+
+                  ","Aug20,2018"
+99,99,99,99,17301.0,"
+                    2003-04 Topps Chrome Black Refractor #111 LeBron James RC Rookie 420/500 PSA 10
+
+                  ","Aug9,2018"
+100,100,100,100,6099.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT (PWCC)
+
+                  ","Jul31,2018"
+101,101,101,101,6400.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT (PWCC)
+
+                  ","Jul19,2018"
+102,102,102,102,2200.0,"
+                    2003 03-04 Topps Chrome Refractor LeBron James PSA 9 Mint RC Rookie Card SP
+
+                  ","Jun27,2018"
+103,103,103,103,6099.0,"
+                    2003 TOPPS CHROME LEBRON JAMES REFRACTOR XFRACTOR #111 RC BGS 9 MINT PSA 9? /220
+
+                  ","Jun18,2018"
+104,104,104,104,5551.0,"
+                    2003-04 Topps Chrome Refractor #111 LeBron James Cavaliers RC Rookie PSA 10 
+
+                  ","Jun11,2018"
+105,105,105,105,5477.0,"
+                    2003-04 Topps Chrome Refractor #111 LeBron James Cavaliers RC Rookie PSA 10 
+
+                  ","May29,2018"
+106,106,106,106,5101.11,"
+                    2003-04 Topps Chrome Refractor #111 LeBron James RC Rookie PSA 10 HOT CARD 
+
+                  ","May23,2018"
+107,107,107,107,5766.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT (PWCC)
+
+                  ","May21,2018"
+108,108,108,108,5399.0,"
+                    2003 Lebron James Topps Chrome Refractor RC Rookie #111 PSA 10 Gem Mint
+
+                  ","May20,2018"
+109,109,109,109,5299.0,"
+                    2003-04 LeBron James Topps Chrome Refractor #111 RC Rookie PSA GEM MINT 10 RARE
+
+                  ","May20,2018"
+110,110,110,110,5505.0,"
+                    2003-04 Topps Chrome Refractor #111 LeBron James Cavaliers RC Rookie PSA 10 RARE
+
+                  ","May16,2018"
+111,111,111,111,2460.0,"
+                    2003-04 Topps Chrome Refractor #111 LeBron James Cavaliers RC Rookie PSA 9      
+
+                  ","May7,2018"
+112,112,112,112,6100.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT (PWCC)
+
+                  ","Apr30,2018"
+113,113,113,113,2700.0,"
+                    2003-04 Topps Chrome REFRACTOR  #111 LeBRON JAMES RC ROOKIE PSA 9 VERY NICE!
+
+                  ","Apr28,2018"
+114,114,114,114,5325.02,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT (PWCC)
+
+                  ","Apr23,2018"
+115,115,115,115,2025.0,"
+                    2003-04 Topps Chrome Refractors #111 LeBron James RC ROOKIE CARD BGS 9 MINT psa
+
+                  ","Apr22,2018"
+116,116,116,116,4852.24,"
+                    2003-04 Topps Chrome Refractor #111 LeBron James RC Rookie PSA 10 "" SCARCE ""
+
+                  ","Apr18,2018"
+117,117,117,117,10500.0,"
+                    2003-04 Topps Chrome Black Refractor #111 LeBron James RC Rookie /500 PSA 10 
+
+                  ","Apr18,2018"
+118,118,118,118,5105.0,"
+                    2003-04 Topps Chrome Refractor #111 LeBron James RC Rookie PSA 10 "" SUPER RARE ""
+
+                  ","Apr18,2018"
+119,119,119,119,4850.0,"
+                    2003 Topps Chrome Refractor #111 Lebron James Rookie Card RC PSA 10 Gem Mint
+
+                  ","Mar30,2018"
+120,120,120,120,4900.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT (PWCC)
+
+                  ","Mar29,2018"
+121,121,121,121,4951.0,"
+                    2003 Topps Chrome Black Refractor LeBron James ROOKIE RC /500 #111 PSA 9 (PWCC)
+
+                  ","Mar21,2018"
+122,122,122,122,4950.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT (PWCC)
+
+                  ","Feb28,2018"
+123,123,123,123,2078.23,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 9 MINT (PWCC)
+
+                  ","Feb15,2018"
+124,124,124,124,5100.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT (PWCC)
+
+                  ","Feb15,2018"
+125,125,125,125,4200.0,"
+                    2003-04 Topps Chrome Refractor #111 LeBron James Cavaliers RC Rookie PSA 10
+
+                  ","Feb6,2018"
+126,126,126,126,4306.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT (PWCC)
+
+                  ","Dec21,2017"
+127,127,127,127,3625.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT (PWCC)
+
+                  ","Dec17,2017"
+128,128,128,128,2932.88,"
+                    2003 Topps Chrome Black Refractor LeBron James ROOKIE RC /500 #111 PSA 9 (PWCC)
+
+                  ","Dec17,2017"
+129,129,129,129,1725.0,"
+                    Lebron James 2003-04 Topps Chrome Refractor Rookie RC PSA Mint 9 #111
+
+                  ","Nov5,2017"
+130,130,130,130,5103.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT (PWCC)
+
+                  ","Oct31,2017"
+131,131,131,131,5000.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT (PWCC)
+
+                  ","Oct22,2017"
+132,132,132,132,14900.0,"
+                    2003 Topps Chrome Gold Refractor LeBron James ROOKIE RC /50 #111 PSA 9 MT (PWCC)
+
+                  ","Oct22,2017"
+133,133,133,133,1581.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 9 MINT (PWCC)
+
+                  ","Oct22,2017"
+134,134,134,134,3850.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT (PWCC)
+
+                  ","Sep21,2017"
+135,135,135,135,1645.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 9 MINT (PWCC)
+
+                  ","Sep21,2017"
+136,136,136,136,171.49,"
+                    10 2003 Topps Chrome Gold Refractor PSA 10 LOT LeBron James RC Rookie Year!!!!
+
+                  ","Sep3,2017"
+137,137,137,137,1691.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 9 MINT (PWCC)
+
+                  ","Aug22,2017"
+138,138,138,138,4349.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT (PWCC)
+
+                  ","Aug22,2017"
+139,139,139,139,4200.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT (PWCC)
+
+                  ","Jul24,2017"
+140,140,140,140,4300.0,"
+                    2003-04 Topps Chrome Refractor #111 LeBron James Cavaliers RC Rookie PSA 10 RARE
+
+                  ","Jul17,2017"
+141,141,141,141,4950.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT (PWCC)
+
+                  ","Jul16,2017"
+142,142,142,142,24500.0,"
+                    2003 Topps Chrome Gold Refractor LeBron James ROOKIE RC /50 #111 PSA 10 (PWCC)
+
+                  ","Jul16,2017"
+143,143,143,143,1425.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 9 MINT (PWCC)
+
+                  ","Jul16,2017"
+144,144,144,144,5277.0,"
+                    2003-04 Topps Chrome Refractor #111 LeBron James Cavaliers RC Rookie PSA 10 
+
+                  ","Jul6,2017"
+145,145,145,145,5000.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT (PWCC)
+
+                  ","Jun22,2017"
+146,146,146,146,1934.0,"
+                    LeBron James 2003 04 Topps Chrome Refractor ROOKIE RC Card #111 PSA 9 MINT
+
+                  ","Jun22,2017"
+147,147,147,147,4850.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT (PWCC)
+
+                  ","Jun15,2017"
+148,148,148,148,5100.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT (PWCC)
+
+                  ","Jun15,2017"
+149,149,149,149,8080.0,"
+                    2003 Topps Chrome Black Refractor LeBron James ROOKIE RC /500 PSA 10 GEM (PWCC)
+
+                  ","Jun15,2017"
+150,150,150,150,2832.23,"
+                    PSA 9 LEBRON JAMES 2003-2004 TOPPS CHROME BLACK ROOKIE RC REFRACTOR #379/500 MT!
+
+                  ","May7,2017"
+151,151,151,151,5300.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT (PWCC)
+
+                  ","May2,2017"
+152,152,152,152,5420.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT
+
+                  ","Apr30,2017"
+153,153,153,153,2026.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 9 MINT (PWCC)
+
+                  ","Apr24,2017"
+154,154,154,154,6000.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT (PWCC)
+
+                  ","Apr24,2017"
+155,155,155,155,2301.0,"
+                    2003 TOPPS CHROME LEBRON JAMES REFRACTOR RC ROOKIE CARD PSA 9 WOW!! ++$3000
+
+                  ","Apr23,2017"
+156,156,156,156,233.5,"
+                    BGS 9.5 2003-04 LeBron James RC Rookie Topps Pristine Refractor Chrome /1999 PSA
+
+                  ","Apr14,2017"
+157,157,157,157,4750.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT (PWCC)
+
+                  ","Mar21,2017"
+158,158,158,158,4150.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT (PWCC)
+
+                  ","Feb28,2017"
+159,159,159,159,4500.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT (PWCC)
+
+                  ","Feb20,2017"
+160,160,160,160,1375.0,"
+                    2003-04 Topps Chrome Refractor #111 LeBron James RC Rookie PSA 9 "" HOT CARD "" 
+
+                  ","Feb6,2017"
+161,161,161,161,194.5,"
+                    Dwyane Wade PSA 10 2003 Topps Chrome Refractor RC Rookie LeBron James Year WOW
+
+                  ","Jan18,2017"
+162,162,162,162,1807.0,"
+                    Dwyane Wade PSA 10 2003 Topps Chrome Gold Refractor RC Rookie LeBron James Year
+
+                  ","Dec29,2016"
+163,163,163,163,776.0,"
+                    Carmelo Anthony PSA 10 2003 Topps Chrome Gold Refractor RC LeBron James Year!!!
+
+                  ","Dec29,2016"
+164,164,164,164,178.55,"
+                    Chris Bosh PSA 10 2003 Topps Chrome Gold Refractor RC LeBron James Year!!!!
+
+                  ","Dec29,2016"
+165,165,165,165,3728.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT (PWCC)
+
+                  ","Dec22,2016"
+166,166,166,166,805.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 9 MINT 
+
+                  ","Dec3,2016"
+167,167,167,167,810.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 9 MINT (PWCC)
+
+                  ","Nov3,2016"
+168,168,168,168,1026.01,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 9 MINT (PWCC)
+
+                  ","Oct23,2016"
+169,169,169,169,2550.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT (PWCC)
+
+                  ","Sep21,2016"
+170,170,170,170,2000.0,"
+                    LEBRON JAMES 2003 TOPPS CHROME XFRACTOR ROOKIE RC #111 PSA 9 ~REFRACTOR~ SN /250
+
+                  ","Sep12,2016"
+171,171,171,171,1093.88,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 9 MINT (PWCC)
+
+                  ","Aug2,2016"
+172,172,172,172,882.56,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 9 MINT (PWCC)
+
+                  ","Jul24,2016"
+173,173,173,173,2815.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT (PWCC)
+
+                  ","Jul7,2016"
+174,174,174,174,2040.0,"
+                    2003-04 Topps Chrome Refractor #111 LeBron James Cavaliers RC Rookie PSA 10 
+
+                  ","Jun9,2016"
+175,175,175,175,730.0,"
+                    2003 Topps Chrome Refractor LeBron James Rookie RC #111 PSA 9 MINT 
+
+                  ","May22,2016"
+176,176,176,176,624.1,"
+                    2003 Topps Chrome Refractor #111 LeBron James Cavaliers Rookie RC PSA 9 MINT
+
+                  ","May9,2016"
+177,177,177,177,1511.1,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT (PWCC)
+
+                  ","Mar16,2016"
+178,178,178,178,573.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 9 MINT (PWCC)
+
+                  ","Feb18,2016"
+179,179,179,179,890.0,"
+                    2003 TOPPS CHROME LEBRON JAMES PSA 9 MINT BLACK REFRACTOR RC ROOKIE CARD BGS 
+
+                  ","Dec10,2015"
+180,180,180,180,1411.86,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT (PWCC)
+
+                  ","Nov17,2015"
+181,181,181,181,649.0,"
+                    2003-04 Topps Chrome Lebron James RC rookie Refractor PSA 9 Mint - VERY NICE!!
+
+                  ","Oct18,2015"
+182,182,182,182,1525.0,"
+                    LEBRON JAMES 2003 TOPPS CHROME #111 REFRACTOR ROOKIE RC PSA 10 GEM MINT NBA CAVS
+
+                  ","Aug11,2015"
+183,183,183,183,1325.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT (PWCC)
+
+                  ","Jul16,2015"
+184,184,184,184,521.57,"
+                    2003 Topps Chrome Refractor #111 LeBron James Rookie RC Cavaliers PSA 9 MINT 
+
+                  ","Jul9,2015"
+185,185,185,185,588.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 9 MINT (PWCC)
+
+                  ","Jun17,2015"
+186,186,186,186,2850.0,"
+                    2003 Topps Chrome Gold Refractor LeBron James ROOKIE RC /50 #111 PSA 9 MT (PWCC)
+
+                  ","May19,2015"
+187,187,187,187,1100.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT (PWCC)
+
+                  ","May19,2015"
+188,188,188,188,1075.0,"
+                    LEBRON JAMES 2003 TOPPS CHROME REFRACTOR ROOKIE RC PSA 10 GEM MINT
+
+                  ","May4,2015"
+189,189,189,189,1177.0,"
+                    2003-04 Topps Chrome Refractor LeBron James RC Rookie PRISTINE PSA 10 CENTERED
+
+                  ","May3,2015"
+190,190,190,190,3475.02,"
+                    2003 Topps Chrome Black Refractor LeBron James ROOKIE RC /500 #111 PSA 10 (PWCC)
+
+                  ","Apr13,2015"
+191,191,191,191,445.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 9 MINT (PWCC)
+
+                  ","Mar16,2015"
+192,192,192,192,1200.0,"
+                    2003 Topps Chrome Refractor LeBron James ROOKIE RC #111 PSA 10 GEM MINT (PWCC)
+
+                  ","Mar16,2015"
+193,193,193,193,495.0,"
+                    2003 LEBRON JAMES TOPPS CHROME REFRACTOR  ROOKIE RC  PSA 9 
+
+                  ","Feb24,2015"
+194,194,194,194,5511.11,"
+                    2003 Topps Chrome Gold Refractor LeBron James ROOKIE RC /50 PSA 10 GEM MT (PWCC)
+
+                  ","Feb13,2015"
+195,195,195,195,3200.0,"
+                    2003 Topps Chrome Black Refractor LeBron James ROOKIE RC /500 PSA 10 GEM (PWCC)
+
+                  ","Feb13,2015"
+196,196,196,196,1275.0,"
+                    2003 Topps Chrome Black Refractor LeBron James ROOKIE RC /500 #111 PSA 9 (PWCC)
+
+                  ","Dec8,2014"
+197,197,197,197,1063.0,"
+                    2003 Topps Chrome REFRACTOR #111 LeBron ""KING"" James RC Rookie PSA 10 LOW POP 
+
+                  ","Dec3,2014"
+198,198,198,198,1035.0,"
+                    2003 Topps Chrome Refractor LeBron James RC PSA 10 GEM MINT RARE LOW POP
+
+                  ","Oct17,2014"
+199,199,199,199,1060.0,"
+                    LeBron James 2003 Topps Chrome Refractor #111 Rookie Card RC PSA 10 = BGS 9.5/10
+
+                  ","Oct16,2014"
+200,200,200,200,1032.5,"
+                    2003 Topps Chrome Black Refractor LeBron James RC Rookie 264/500 PSA 9 MINT
+
+                  ","Aug12,2014"
+201,201,201,201,910.0,"
+                    LEBRON JAMES 2003 TOPPS CHROME BLACK REFRACTOR #436/500 ROOKIE RC PSA 9 RARE!
+
+                  ","Apr16,2014"
+202,202,202,202,681.43,"
+                    PSA 10 LEBRON JAMES 2003/04 TOPPS CHROME REFRACTOR #111 ROOKIE RC SP
+
+                  ","Dec2,2013"
+203,203,203,203,415.01,"
+                    2003 TOPPS CHROME #111 LEBRON JAMES REFRACTOR RC PSA 9
+
+                  ","Aug25,2013"
+204,204,204,204,366.0,"
+                    2003 TOPPS CHROME #111 LEBRON JAMES RC REFRACTOR PSA 9
+
+                  ","Aug18,2013"
+205,205,205,205,370.0,"
+                    2003/04 Topps Chrome LEBRON JAMES REFRACTOR #111 PSA 9 RC MINT BGS 9.5?
+
+                  ","Aug11,2013"
+206,206,206,206,785.01,"
+                    2003 Topps Chrome Refractor #111 LeBron James Rookie RC PSA 10 GEM MINT
+
+                  ","Jul20,2013"
+207,207,207,207,860.0,"
+                    2003 04 LEBRON JAMES TOPPS CHROME REFRACTOR ROOKIE RC PSA 10 GEM MINT
+
+                  ","Jul14,2013"
+208,208,208,208,362.5,"
+                    2003 Topps Chrome Lebron James Black Refractor RC #111 PSA 8 NM-MT
+
+                  ","Jul7,2013"
+209,209,209,209,461.0,"
+                    LEBRON JAMES 2003 03 ROOKIE RC REFRACTOR TOPPS CHROME # 111 PSA MINT SUPER HOT!!
+
+                  ","Jun8,2013"
+210,210,210,210,420.0,"
+                    2003 TOPPS CHROME REFRACTOR LEBRON JAMES ROOKIE RC MINT SP #111 PSA ULTRA RARE!!
+
+                  ","May19,2013"
+211,211,211,211,820.0,"
+                    2003 LEBRON JAMES TOPPS CHROME REFRACTOR RC PSA 10
+
+                  ","May14,2013"
+212,212,212,212,819.0,"
+                    PSA 10 LEBRON JAMES 2003 TOPPS CHROME RC REFRACTOR SP #111  HOT HEAT SUPERSTAR
+
+                  ","Mar27,2013"
+213,213,213,213,300.0,"
+                    2003 Topps Chrome #111 LeBron James Black Refractor RC 435/500 PSA 8 NrMt--Mt
+
+                  ","Sep9,2012"
+214,214,214,214,351.88,"
+                    LeBron James 2003 Rookie RC 03-04 Topps Chrome BLACK Refractor /500 PSA MINT 9
+
+                  ","Jul18,2012"
+215,215,215,215,510.01,"
+                    2003-04 Topps Chrome Refractor Lebron James Rc Rookie PSA 10....Incredible Card
+
+                  ","Jun10,2012"
+216,216,216,216,227.0,"
+                    2003 TOPPS CHROME LEBRON JAMES REFRACTOR RC PSA 9
+
+                  ","May27,2012"
+217,217,217,217,650.0,"
+                    2003-04 Topps Chrome BLACK Refractor Lebron James RC Rookie #/500 PSA 10!!!
+
+                  ","Nov13,2011"
+218,218,218,218,271.0,"
+                    PSA 10 2003 TOPPS CHROME LEBRON JAMES RC REFRACTOR RARE
+
+                  ","Aug16,2011"
+219,219,219,219,316.11,"
+                    PSA 9 2003 Topps Chrome Lebron James Black Refractor Rc
+
+                  ","Jun12,2011"
+220,220,220,220,338.53,"
+                    2003 TOPPS CHROME REFRACTOR LEBRON JAMES RC PSA 10
+
+                  ","Dec20,2010"
+221,221,221,221,213.5,"
+                    LEBRON JAMES 2003/04 TOPPS CHROME REFRACTOR RC SP PSA 9
+
+                  ","Oct27,2010"
+222,222,222,222,260.0,"
+                    LEBRON JAMES 2003 03/04 TOPPS CHROME RC REFRACTOR PSA 9
+
+                  ","Jul24,2010"
+223,223,223,223,403.37,"
+                    2003 TOPPS CHROME REFRACTOR LEBRON JAMES RC PSA 10
+
+                  ","Dec20,2009"
+224,224,224,224,212.04,"
+                    LeBRON JAMES 2003-04 Topps Chrome Refractor RC PSA 9 !!
+
+                  ","Dec2,2009"
+225,225,225,225,323.0,"
+                    LEBRON JAMES 2003/04 TOPPS CHROME REFRACTOR RC PSA 10
+
+                  ","Nov29,2009"
+226,226,226,226,335.01,"
+                    PSA 10 2003 TOPPS CHROME REFRACTOR LEBRON JAMES RC REF
+
+                  ","Nov18,2009"
+227,227,227,227,224.53,"
+                    PSA 9 2003 03 TOPPS CHROME LEBRON JAMES REFRACTOR RC
+
+                  ","Oct26,2009"
+228,228,228,228,365.0,"
+                    LEBRON JAMES 2003 TOPPS CHROME REFRACTOR RC SP PSA 10
+
+                  ","Jun25,2009"
+229,229,229,229,570.0,"
+                    2003-04 Topps Chrome LeBron James RC REFRACTOR PSA 10
+
+                  ","May29,2009"
+230,230,230,230,369.95,"
+                    2003 TOPPS CHROME REFRACTOR LEBRON JAMES RC PSA 9 50/50
+
+                  ","May17,2009"
+231,231,231,231,224.5,"
+                    2003 Topps Chrome Lebron James RC Black Refractor PSA 9
+
+                  ","Aug26,2008"
+232,232,232,232,243.5,"
+                    2003 Topps Chrome Lebron James RC Refractor PSA 10 Gem
+
+                  ","Aug26,2008"
+233,233,233,233,310.0,"
+                    LEBRON JAMES 2003-04 TOPPS CHROME REFRACTOR RC PSA 10
+
+                  ","Apr9,2008"
+234,234,234,234,305.0,"
+                    2003 Topps Chrome LeBron James Refractor RC PSA 10
+
+                  ","Aug28,2007"
+235,235,235,235,217.5,"
+                    2003 LEBRON JAMES RC TOPPS CHROME REFRACTOR PSA 10
+
+                  ","Aug20,2007"
+236,236,236,236,139.29,"
+                    2003 Topps Chrome REF RC LeBron James PSA 9 Refractor
+
+                  ","Jul1,2007"
+237,237,237,237,286.89,"
+                    PSA 10 2003-04 Topps Chrome REFRACTOR LEBRON JAMES RC !
+
+                  ","Jun17,2007"
+238,238,238,238,275.0,"
+                    2003 LEBRON JAMES Topps Chrome Refractor RC SP PSA 10
+
+                  ","Jun14,2007"
+239,239,239,239,416.11,"
+                    2003 TOPPS CHROME REFRACTOR LEBRON JAMES RC SP PSA 10
+
+                  ","Jun7,2007"
+240,240,240,240,265.0,"
+                    PSA 10 2003 03 TOPPS CHROME LEBRON JAMES REFRACTOR RC
+
+                  ","May10,2007"
+241,241,241,241,158.5,"
+                    PSA 9 2003 03 TOPPS CHROME LEBRON JAMES REFRACTOR RC
+
+                  ","May8,2007"
